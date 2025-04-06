@@ -10,11 +10,16 @@ function App() {
   const handleBookMark = (blog) => {
     setBookmark([...bookmark, blog]);
   };
-  const handleMarkAsRead = (time) => {
+  const handleMarkAsRead = (time, id) => {
     const newCount = readingCount + time;
     setReadingCount(newCount);
+    handleRemoveFromBookmark(id);
   };
-  console.log(readingCount);
+  const handleRemoveFromBookmark = (id) => {
+    const remainingBookmark = bookmark.filter((mark) => mark.id !== id);
+    setBookmark(remainingBookmark);
+  };
+
   return (
     <>
       <Navbar></Navbar>
@@ -30,7 +35,7 @@ function App() {
           <h1>Reading time: {readingCount}</h1>
           <h1>Bookmarked count: {bookmark.length}</h1>
           {bookmark.map((mark) => (
-            <p>{mark.title}</p>
+            <p className="bg-red-600 p-2 shadow m-2 text-white">{mark.title}</p>
           ))}
         </div>
       </div>
